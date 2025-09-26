@@ -1,0 +1,15 @@
+# Environment Variables
+.env
+
+# Virtual Environment
+.venv/
+
+# System-Generated Files & Folders 
+__pycache__/
+*.pyc
+
+# File-Based Database
+db.sqlite3
+
+# Excluding pyproject for now
+pyproject.toml
