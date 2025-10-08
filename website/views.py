@@ -1,6 +1,9 @@
-# from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render
+
+from .models import AreaServicio
 
 
 def home(request):
-    return HttpResponse("This is the homepage of the website.")
+    servicios = AreaServicio.objects.all()
+    context = {"servicios": servicios}
+    return render(request, "website/home.html", context)

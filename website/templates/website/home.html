@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>home</title>
+    </head>
+    <body>
+        <h1>Servcios.</h1>
+        <ul>
+            {% for sirvice in servicios %}
+                <h4>{{ sirvice.name }}</h4>
+            {% empty %}
+                <h4>no hay items</h4>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

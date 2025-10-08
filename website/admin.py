@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import ServicioDetalle, AreaServicio
+
+admin.site.register(ServicioDetalle)
+admin.site.register(AreaServicio)
