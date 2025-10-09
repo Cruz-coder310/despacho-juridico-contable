@@ -13,3 +13,14 @@ db.sqlite3
 
 # Excluding pyproject for now
 pyproject.toml
+
+# --- Archivos de Build de Tailwind/Node.js (Lo que NO quieres subir) ---
+
+# 1. El CSS FINAL compilado (styles.css dentro de dist)
+theme/static/css/dist/
+
+# 2. Los miles de archivos de paquetes de Node.js
+theme/static_src/node_modules/
+
+# 3. Archivo de bloqueo (Lock file) generado por Node.js/NPM (No necesario si usas Yarn)
+theme/static_src/package-lock.json
