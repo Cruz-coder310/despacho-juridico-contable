@@ -10,4 +10,10 @@ def home(request):
 
 
 def servicios(request):
-    return render(request, "website/servicios.html", {})
+    servicios_contables = AreaServicio.objects.filter(type="CT").order_by("name")
+    servicios_juridicos = AreaServicio.objects.filter(type="JR").order_by("name")
+    context = {
+        "servicios_contables": servicios_contables,
+        "servicios_juridicos": servicios_juridicos,
+    }
+    return render(request, "website/servicios.html", context)
