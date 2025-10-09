@@ -12,6 +12,10 @@ class AreaServicio(models.Model):
     name = models.CharField(
         max_length=100, unique=True, verbose_name="Nombre del Área"
     )
+    description = models.TextField(
+        default="Descripción pendiente",
+        verbose_name="Descripción del Área de Servicio",
+    )
     type = models.CharField(
         max_length=2,
         choices=TIPO_SERVICIO_CHOICES,
