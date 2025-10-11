@@ -11,6 +11,7 @@
             </p>
         </div>
     </section>
+<!-- ---------------------------------------------------------------------------------------------- -->
     <!-- Servicios Jurídicos -->
     <section class="py-24 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,7 +24,7 @@
                 </p>
             </div>
             <div class="grid md:grid-cols-2 gap-8">
-                {% for service in servicios_juridicos %}
+                {% for area in areas_juridicas %}
                     <div class="group relative bg-gradient-to-br from-slate-800 via-slate-700 to-slate-800 rounded-2xl p-8 shadow-2xl hover:shadow-amber-500/20 transition-all duration-500 hover:-translate-y-2 border border-slate-600/30">
                         <!-- Brillo metálico superior -->
                         <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-60">
@@ -47,9 +48,10 @@
                         </div>
                         <!-- Contenido -->
                         <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-300 mb-4 text-center">
-                            {{ service.name }}
+                            {{ area.name }}
                         </h3>
-                        <p class="text-slate-300 leading-relaxed text-center mb-6">{{ service.description }}</p>
+                        <p class="text-slate-300 leading-relaxed text-center
+                        mb-6">{{ area.description }}</p>
                         <!-- Botón de consulta -->
                         <div class="text-center">
                             <a href="#contacto"
@@ -89,6 +91,7 @@
             </div>
         </div>
     </section>
+<!-- ---------------------------------------------------------------------------------------------- -->
     <!-- Servicios Contables -->
     <section class="py-24 bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,7 +104,7 @@
                 </p>
             </div>
             <div class="grid md:grid-cols-2 gap-8">
-                {% for service in servicios_contables %}
+                {% for area in areas_contables %}
                     <div class="group relative bg-gradient-to-br from-slate-700 via-slate-600 to-slate-700 rounded-2xl p-8 shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500 hover:-translate-y-2 border border-slate-500/30">
                         <!-- Brillo metálico superior -->
                         <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-60">
@@ -125,9 +128,9 @@
                         </div>
                         <!-- Contenido -->
                         <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-teal-300 mb-4 text-center">
-                            {{ service.name }}
+                            {{ area.name }}
                         </h3>
-                        <p class="text-slate-300 leading-relaxed text-center mb-6">{{ service.description }}</p>
+                        <p class="text-slate-300 leading-relaxed text-center mb-6">{{ area.description }}</p>
                         <!-- Botón de consulta -->
                         <div class="text-center">
                             <a href="#contacto"
