@@ -144,7 +144,7 @@
                                     <div class="mt-4 bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-2xl border border-slate-700/50 overflow-hidden transition-all duration-300 ease-in-out transform origin-top opacity-0 -translate-y-2 group-open:opacity-100 group-open:translate-y-0">
                                         <div class="p-2">
                                             {% for servicio in area.serviciodetalle_set.all %}
-                                                <a href="{% url 'website:servicio' servicio.slug %}"
+                                                <a href="{% url 'services:servicio' servicio.slug %}"
                                                    class="flex items-center px-4 py-3 hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-teal-500/10 rounded-lg transition-all duration-200 group">
                                                     <div class="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 mr-3 group-hover:scale-150 transition-transform duration-300">
                                                     </div>
@@ -275,7 +275,7 @@
                                     <div class="mt-4 bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-2xl border border-slate-700/50 overflow-hidden transition-all duration-300 ease-in-out transform origin-top opacity-0 -translate-y-2 group-open:opacity-100 group-open:translate-y-0">
                                         <div class="p-2">
                                             {% for servicio in area.serviciodetalle_set.all %}
-                                                <a href="{% url 'website:servicio' servicio.slug %}"
+                                                <a href="{% url 'services:servicio' servicio.slug %}"
                                                    class="flex items-center px-4 py-3 hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-yellow-500/10 rounded-lg transition-all duration-200 group">
                                                     <div class="w-2 h-2 rounded-full bg-gradient-to-r from-amber-400 to-yellow-400 mr-3 group-hover:scale-150 transition-transform duration-300">
                                                     </div>
