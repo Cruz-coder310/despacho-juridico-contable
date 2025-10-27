@@ -78,7 +78,7 @@
             <!-- Grid de servicios -->
             <div class="grid md:grid-cols-2 gap-10 mb-20">
                 {% for area in areas_contables %}
-                    <div class="group relative">
+                    <div id="area-{{ area.pk }}" class="group relative">
                         <!-- Efecto de resplandor -->
                         <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/30 to-teal-500/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         </div>
@@ -177,22 +177,6 @@
                     </div>
                 {% endfor %}
             </div>
-            <!-- CTA Section -->
-            <div class="text-center">
-                <div class="inline-block">
-                    <a href="#contacto"
-                       class="group relative inline-flex items-center px-10 py-5 bg-gradient-to-r from-sky-600 to-blue-600 text-white font-bold rounded-2xl hover:from-sky-700 hover:to-blue-700 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105">
-                        <span class="absolute inset-0 bg-white rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-                        <svg class="w-6 h-6 mr-3"
-                             fill="none"
-                             stroke="currentColor"
-                             viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                        <span class="relative">Consulta gratuita sobre servicios jurídicos</span>
-                    </a>
-                </div>
-            </div>
         </div>
     </section>
     <!-- Servicios Jurídicos -->
@@ -223,7 +207,7 @@
             <!-- Grid de áreas jurídicas -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {% for area in areas_juridicas %}
-                    <div class="group relative">
+                    <div id="area-{{ area.pk }}" class="group relative">
                         <!-- Fondo animado -->
                         <div class="absolute inset-0 bg-gradient-to-br from-amber-500/30 to-yellow-500/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         </div>

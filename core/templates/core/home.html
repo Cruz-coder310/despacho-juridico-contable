@@ -38,10 +38,10 @@
                     </span>
                 </a>
                 <!-- Botón para consulta gratuita -->
-                <a href="#contacto"
+                <a href="{% url 'citas:reserva' %}"
                    class="group w-full sm:w-auto inline-flex items-center justify-center border-4 border-white text-white font-bold px-8 py-4 rounded-lg hover:bg-cyan-400 hover:text-sky-950 transition-all duration-300 transform hover:scale-105">
                     <span class="flex items-center">
-                        Consulta Gratuita
+                        Solicita asesoría
                         <svg class="w-5 h-5 ml-2 transform group-hover:scale-110 transition-transform"
                              fill="none"
                              stroke="currentColor"
@@ -101,7 +101,7 @@
                         <!-- Descripción del servicio truncada a 25 palabras -->
                         <p class="text-gray-600 mb-6 leading-relaxed">{{ service.description|truncatewords:25 }}</p>
                         <!-- Enlace para ver más información del servicio -->
-                        <a href="#"
+                        <a href="{% url "services:servicios" %}#area-{{ service.pk }}"
                            class="inline-flex items-center text-cyan-600 font-medium hover:text-cyan-700 transition-colors duration-300 group/link">
                             Más información
                             <!-- Flecha animada que se mueve al pasar el mouse -->
@@ -194,10 +194,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
             <h2 class="text-3xl md:text-4xl font-extrabold mb-6">¿Listo para proteger tu patrimonio?</h2>
             <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Agenda una consulta gratuita y descubre cómo podemos ayudarte a blindar tu futuro.
+                Agenda una consulta y descubre cómo podemos ayudarte a blindar tu futuro.
             </p>
-            <a href="#contacto"
-               class="inline-flex items-center px-8 py-4 bg-cyan-400 text-sky-950 font-bold rounded-lg hover:bg-cyan-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            <a href="{% url 'citas:reserva' %}"
+               class="inline-flex items-center px-8 py-4 bg-white text-sky-950 font-bold rounded-lg hover:bg-cyan-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                 Agendar Consulta Ahora
                 <svg class="w-5 h-5 ml-2"
                      fill="none"
