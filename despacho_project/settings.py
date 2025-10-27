@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "tailwind",
     "theme",
     "django_extensions",
+    "phonenumber_field",
 ]
 
 if DEBUG:
@@ -130,22 +131,22 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'simple': {
-            'format': '{levelname} - {message}',
-            'style': '{',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {
+            "format": "{levelname} - {message}",
+            "style": "{",
         },
     },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
+    "root": {
+        "handlers": ["console"],
+        "level": "DEBUG",
     },
 }

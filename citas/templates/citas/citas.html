@@ -1,6 +1,300 @@
-<form action="{% url 'citas:reserva' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enviar</button>
-</form>
-
+{% extends 'core/base.html' %}
+{% load static %}
+{% block contenido %}
+    <div class="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-900 mb-3 tracking-tight">Agendar Cita</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Complete el formulario y nos pondremos en contacto con usted a la brevedad posible
+                </p>
+            </div>
+            <!-- Messages Section -->
+            {% if messages %}
+                <div class="mb-6 space-y-3">
+                    {% for message in messages %}
+                        <div class="rounded-lg p-4 shadow-sm border-l-4 {% if message.tags == 'success' %} bg-green-50 border-green-500 text-green-800 {% elif message.tags == 'error' %} bg-red-50 border-red-500 text-red-800 {% elif message.tags == 'warning' %} bg-yellow-50 border-yellow-500 text-yellow-800 {% else %} bg-blue-50 border-blue-500 text-blue-800 {% endif %}"
+                             role="alert">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    {% if message.tags == 'success' %}
+                                        <svg class="h-5 w-5 text-green-500"
+                                             fill="currentColor"
+                                             viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    {% elif message.tags == 'error' %}
+                                        <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                        </svg>
+                                    {% else %}
+                                        <svg class="h-5 w-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                        </svg>
+                                    {% endif %}
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <p class="font-medium">{{ message }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <!-- Form Card -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                <div class="px-8 py-10 sm:px-12">
+                    <form action="{% url 'citas:reserva' %}"
+                          method="post"
+                          class="space-y-6"
+                          id="citaForm"
+                          novalidate>
+                        {% csrf_token %}
+                        <!-- Non-field Errors -->
+                        {% if form.non_field_errors %}
+                            <div class="rounded-lg bg-red-50 border border-red-200 p-4">
+                                <div class="flex">
+                                    <svg class="h-5 w-5 text-red-500 mt-0.5"
+                                         fill="currentColor"
+                                         viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                    </svg>
+                                    <div class="ml-3">
+                                        <h3 class="text-sm font-semibold text-red-800 mb-2">Se encontraron errores en el formulario</h3>
+                                        <ul class="list-disc list-inside space-y-1 text-sm text-red-700">
+                                            {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <!-- Name Field -->
+                        <div class="form-group">
+                            <label for="{{ form.name.id_for_label }}"
+                                   class="block text-sm font-semibold text-gray-800 mb-2">
+                                {{ form.name.label }}
+                                {% if form.name.field.required %}<span class="text-red-600 ml-1" aria-label="requerido">*</span>{% endif %}
+                            </label>
+                            <input type="text"
+                                   name="{{ form.name.name }}"
+                                   id="{{ form.name.id_for_label }}"
+                                   value="{{ form.name.value|default:'' }}"
+                                   placeholder="{{ form.name.field.widget.attrs.placeholder }}"
+                                   aria-label="{{ form.name.label }}"
+                                   aria-required="{{ form.name.field.required|yesno:'true,false' }}"
+                                   {% if form.name.errors %}aria-invalid="true" aria-describedby="error_{{ form.name.name }}"{% endif %}
+                                   class="block w-full px-4 py-3.5 text-gray-900 border {% if form.name.errors %}border-red-400 ring-2 ring-red-200{% else %}border-gray-300{% endif %} rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-gray-400">
+                            {% if form.name.errors %}
+                                <div id="error_{{ form.name.name }}" class="mt-2 space-y-1">
+                                    {% for error in form.name.errors %}
+                                        <p class="text-sm text-red-600 flex items-start">
+                                            <svg class="h-4 w-4 mr-1.5 mt-0.5 flex-shrink-0"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                            </svg>
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <!-- Email & Phone Row -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label for="{{ form.email.id_for_label }}"
+                                       class="block text-sm font-semibold text-gray-800 mb-2">
+                                    {{ form.email.label }}
+                                    {% if form.email.field.required %}<span class="text-red-600 ml-1" aria-label="requerido">*</span>{% endif %}
+                                </label>
+                                <input type="email"
+                                       name="{{ form.email.name }}"
+                                       id="{{ form.email.id_for_label }}"
+                                       value="{{ form.email.value|default:'' }}"
+                                       placeholder="{{ form.email.field.widget.attrs.placeholder }}"
+                                       aria-label="{{ form.email.label }}"
+                                       aria-required="{{ form.email.field.required|yesno:'true,false' }}"
+                                       {% if form.email.errors %}aria-invalid="true" aria-describedby="error_{{ form.email.name }}"{% endif %}
+                                       class="block w-full px-4 py-3.5 text-gray-900 border {% if form.email.errors %}border-red-400 ring-2 ring-red-200{% else %}border-gray-300{% endif %} rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-gray-400">
+                                {% if form.email.errors %}
+                                    <div id="error_{{ form.email.name }}" class="mt-2 space-y-1">
+                                        {% for error in form.email.errors %}
+                                            <p class="text-sm text-red-600 flex items-start">
+                                                <svg class="h-4 w-4 mr-1.5 mt-0.5 flex-shrink-0"
+                                                     fill="currentColor"
+                                                     viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                </svg>
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <!-- Phone Field -->
+                            <div class="form-group">
+                                <label for="{{ form.phone.id_for_label }}"
+                                       class="block text-sm font-semibold text-gray-800 mb-2">
+                                    {{ form.phone.label }}
+                                    {% if form.phone.field.required %}<span class="text-red-600 ml-1" aria-label="requerido">*</span>{% endif %}
+                                </label>
+                                <input type="tel"
+                                       name="{{ form.phone.name }}"
+                                       id="{{ form.phone.id_for_label }}"
+                                       value="{{ form.phone.value|default:'' }}"
+                                       placeholder="{{ form.phone.field.widget.attrs.placeholder }}"
+                                       aria-label="{{ form.phone.label }}"
+                                       aria-required="{{ form.phone.field.required|yesno:'true,false' }}"
+                                       {% if form.phone.errors %}aria-invalid="true" aria-describedby="error_{{ form.phone.name }}"{% endif %}
+                                       class="block w-full px-4 py-3.5 text-gray-900 border {% if form.phone.errors %}border-red-400 ring-2 ring-red-200{% else %}border-gray-300{% endif %} rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-gray-400">
+                                {% if form.phone.errors %}
+                                    <div id="error_{{ form.phone.name }}" class="mt-2 space-y-1">
+                                        {% for error in form.phone.errors %}
+                                            <p class="text-sm text-red-600 flex items-start">
+                                                <svg class="h-4 w-4 mr-1.5 mt-0.5 flex-shrink-0"
+                                                     fill="currentColor"
+                                                     viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                </svg>
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- Service Field -->
+                        <div class="form-group">
+                            <label for="{{ form.service.id_for_label }}"
+                                   class="block text-sm font-semibold text-gray-800 mb-2">
+                                {{ form.service.label }}
+                                {% if form.service.field.required %}<span class="text-red-600 ml-1" aria-label="requerido">*</span>{% endif %}
+                            </label>
+                            <select name="{{ form.service.name }}"
+                                    id="{{ form.service.id_for_label }}"
+                                    aria-label="{{ form.service.label }}"
+                                    aria-required="{{ form.service.field.required|yesno:'true,false' }}"
+                                    {% if form.service.errors %}aria-invalid="true" aria-describedby="error_{{ form.service.name }}"{% endif %}
+                                    class="block w-full px-4 py-3.5 text-gray-900 bg-white border {% if form.service.errors %}border-red-400 ring-2 ring-red-200{% else %}border-gray-300{% endif %} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-gray-400 cursor-pointer">
+                                <option value="">{{ form.service.field.widget.attrs.placeholder }}</option>
+                                {% for value, label in form.service.field.choices %}
+                                    {% if value %}
+                                        <option value="{{ value }}"
+                                                {% if form.service.value == value %}selected{% endif %}>
+                                            {{ label }}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            {% if form.service.errors %}
+                                <div id="error_{{ form.service.name }}" class="mt-2 space-y-1">
+                                    {% for error in form.service.errors %}
+                                        <p class="text-sm text-red-600 flex items-start">
+                                            <svg class="h-4 w-4 mr-1.5 mt-0.5 flex-shrink-0"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                            </svg>
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <!-- Description Field -->
+                        <div class="form-group">
+                            <label for="{{ form.description.id_for_label }}"
+                                   class="block text-sm font-semibold text-gray-800 mb-2">
+                                {{ form.description.label }}
+                                {% if form.description.field.required %}<span class="text-red-600 ml-1" aria-label="requerido">*</span>{% endif %}
+                            </label>
+                            <textarea name="{{ form.description.name }}"
+                                      id="{{ form.description.id_for_label }}"
+                                      rows="5"
+                                      placeholder="{{ form.description.field.widget.attrs.placeholder }}"
+                                      aria-label="{{ form.description.label }}"
+                                      aria-required="{{ form.description.field.required|yesno:'true,false' }}"
+                                      {% if form.description.errors %}aria-invalid="true" aria-describedby="error_{{ form.description.name }}"{% endif %}
+                                      class="block w-full px-4 py-3.5 text-gray-900 border {% if form.description.errors %}border-red-400 ring-2 ring-red-200{% else %}border-gray-300{% endif %} rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-gray-400 resize-y min-h-[120px]">{{ form.description.value|default:'' }}</textarea>
+                            {% if form.description.errors %}
+                                <div id="error_{{ form.description.name }}" class="mt-2 space-y-1">
+                                    {% for error in form.description.errors %}
+                                        <p class="text-sm text-red-600 flex items-start">
+                                            <svg class="h-4 w-4 mr-1.5 mt-0.5 flex-shrink-0"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                            </svg>
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <p class="mt-2 text-xs text-gray-500">
+                                Describa brevemente el motivo de su consulta para brindarle una mejor atención.
+                            </p>
+                        </div>
+                        <!-- Required Fields Note -->
+                        <div class="flex items-start space-x-2 text-sm text-gray-600 bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <svg class="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0"
+                                 fill="currentColor"
+                                 viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                            </svg>
+                            <p>
+                                Los campos marcados con <span class="text-red-600 font-semibold">*</span> son obligatorios.
+                            </p>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="pt-2">
+                            <button type="submit"
+                                    id="submitBtn"
+                                    class="group relative w-full flex justify-center items-center py-4 px-6 border border-transparent text-base font-semibold rounded-lg text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 active:translate-y-0">
+                                <span class="flex items-center">
+                                    <svg class="w-5 h-5 mr-2"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    Agendar Cita
+                                </span>
+                                <span class="absolute right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Contact Info Footer -->
+            <div class="mt-8 text-center">
+                <p class="text-sm text-gray-600">
+                    ¿Necesita ayuda?
+                    <a href="#"
+                       class="font-medium text-blue-600 hover:text-blue-700 underline decoration-2 underline-offset-2 transition-colors">
+                        Contáctenos aquí
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Optional: Loading State Script -->
+    <script>
+document.getElementById('citaForm').addEventListener('submit', function(e) {
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Procesando...
+    `;
+});
+    </script>
+{% endblock contenido %}
