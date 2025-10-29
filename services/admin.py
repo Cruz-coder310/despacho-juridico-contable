@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import AreaServicio, ServicioDetalle
 
 
+@admin.register(ServicioDetalle)
 class ServicioDetalleAdmin(admin.ModelAdmin):
     """Display the slug field as read-only in the admin interface."""
 
@@ -10,4 +11,3 @@ class ServicioDetalleAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AreaServicio)
-admin.site.register(ServicioDetalle, ServicioDetalleAdmin)

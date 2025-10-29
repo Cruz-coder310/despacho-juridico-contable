@@ -1,5 +1,4 @@
-import environ
-from pathlib import Path
+import environ from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,6 +22,7 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 # Application definition
 
 INSTALLED_APPS = [
+    "dashboard.apps.DashboardConfig",
     "citas.apps.CitasConfig",
     "services.apps.ServicesConfig",
     "core.apps.CoreConfig",
@@ -150,3 +150,7 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://acropolitan-hyo-cubital.ngrok-free.dev",
+]

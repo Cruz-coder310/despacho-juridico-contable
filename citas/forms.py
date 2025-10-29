@@ -42,7 +42,7 @@ class CitasForm(forms.ModelForm):
 
         # Configurar labels más descriptivos
         labels = {
-            "name": "Nombre completo",
+            "name": "Nombre o Razón Social",
             "email": "Correo electrónico",
             "phone": "Teléfono de contacto",
             "service": "Servicio solicitado",
