@@ -8,7 +8,7 @@ urlpatterns = [
     path("", include("core.urls")),
     path("citas/", include("citas.urls")),
     path("servicios/", include("services.urls")),
-    path("dashboard/", include("dashboard.urls")),
+    path("admin-panel/", include("dashboard.urls")),
 ]
 if settings.DEBUG:
     # Include django_browser_reload URLs only in DEBUG mode
