@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% block contenido %}
+<form action="{% url 'dashboard:login' %}" method="post">
+        {% csrf_token %}
+        <ul>
+            {{ form.as_ul }}
+            <li><button type="submit">Log in</button></li>
+        </ul>
+    </form>
+{% endblock %}
