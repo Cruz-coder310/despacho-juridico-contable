@@ -51,9 +51,13 @@
                         <a href="{% url 'core:home' %}#contacto"
                            class="font-medium text-black hover:text-cyan-400 transition-colors duration-300 hover:scale-105">Contacto</a>
                     </nav>
-                    <div>
+                    {% if user.is_authenticated %}
+                    <span>Bienvenido, {{ user.username }}!</span>
+                        <a href="{% url 'dashboard:panel' %}">Ir al Panel</a>
+                        <a href="{% url 'dashboard:logout' %}"> Cerrar Sesión</a>
+                    {%else%}
                         <a href="{% url 'dashboard:login' %}">Admin</a>
-                    </div>
+                    {% endif %}
                     <!-- CTA Button Desktop -->
                     <div class="hidden md:block">
                         <a href="{% url 'citas:reserva' %}"

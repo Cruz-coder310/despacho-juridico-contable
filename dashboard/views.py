@@ -1,8 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.http import HttpResponse
+
+
+def dashboard_logout(request):
+    """Log out the current user & redirect to the home page."""
+    logout(request)
+    return redirect("core:home")
 
 
 def dashboard_login(request):
@@ -19,7 +25,6 @@ def dashboard_login(request):
             login(request, user)
             messages.success(request, f"¡Bienvenido de nuevo, {user.username}!")
             return redirect("dashboard:panel")
-        # messages.error(request, "Usuario o contraseña incorrectos.")
     else:
         form = AuthenticationForm()
 
