@@ -1,6 +1,7 @@
 from django.db import models
 from services.models import ServicioDetalle
 from phonenumber_field.modelfields import PhoneNumberField
+from django.contrib.auth.models import User
 
 
 class Cita(models.Model):
@@ -30,6 +31,14 @@ class Cita(models.Model):
         choices=EstadoCita.choices,
         verbose_name="Estado de la Consulta",
         default=EstadoCita.PENDIENTE,
+    )
+    specialist = models.ForeignKey(
+        User,
+        verbose_name="Especialista Asignado",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        limit_choices_to={"is_staff": True},
     )
     description = models.TextField(
         verbose_name="Motivo de la Consulta",

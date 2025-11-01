@@ -17,18 +17,18 @@ class AreaServicio(models.Model):
         default="Descripción pendiente",
         verbose_name="Descripción del Área de Servicio",
     )
-    type = models.CharField(
+    area_type = models.CharField(
         max_length=2,
         choices=AreaType.choices,
         verbose_name="Tipo de Servicio",
     )
 
     def __str__(self):
-        return f"{self.name} ({self.get_type_display()})"
+        return f"{self.name} ({self.get_area_type_display()})"
 
     class Meta:
-        verbose_name = "Área de Servicio Principal"
-        verbose_name_plural = "Áreas de Servicios Principales"
+        verbose_name = "Área de Servicio"
+        verbose_name_plural = "Áreas de Servicio"
 
 
 class ServicioDetalle(models.Model):
